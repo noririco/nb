@@ -8,7 +8,7 @@ const logger = require("../logger");
 module.exports = {
   name: "battlecup",
   description: "embed message in a discord channel",
-  execute(message, args, Discord) {
+  execute(client, message, args, Discord) {
     // const fetchUser = async id => Discord.client.users.fetch(id)
     // const user = message.guild.members.cache.get(`346774988449251328`);
     const embed = new Discord.MessageEmbed()

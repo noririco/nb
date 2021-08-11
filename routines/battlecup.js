@@ -12,11 +12,17 @@ async function battlecup(client) {
   const textChannels = guild.channels.cache.filter((c) => c.type === "text");
   cron.schedule(battleCronDate, () => {
     logger.info(`[Routine] cron.schedule ${battleCronDate}..`);
-    textChannels.forEach((c) => {
-      logger.info(`[Routine] channel embed message ${c.name}..`);
-      battleCupEmbededMessage(c);
-      //   c.send("test");
-    });
+    textChannels.forEach(
+      (c) => {
+        logger.info(`[Routine] channel embed message ${c.name}..`);
+        battleCupEmbededMessage(c);
+        //   c.send("test");
+      },
+      {
+        scheduled: true,
+        timezone: "Asia/Jerusalem",
+      }
+    );
   });
 }
 

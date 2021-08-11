@@ -12,7 +12,7 @@ const logger = require("../logger");
 module.exports = {
   name: "clanme",
   description: "add a clan member role to a member",
-  execute(message, args, Discord) {
+  execute(client, message, args, Discord) {
     if (hasRole(message.member, RoleID.Admin)) {
       const member = getMemberFromMention(args[0], message.client);
       if (!member) {

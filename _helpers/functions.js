@@ -8,25 +8,37 @@ function mentionByRoleId(id) {
 function mentionByMemberId(id) {
   return `<@!${id}>`;
 }
-function setCommands(dir, client) {
-  const commandFiles = fs
-    .readdirSync(dir)
-    .filter((file) => file.endsWith(".js"));
 
-  for (const file of commandFiles) {
-    const p = path.join("..", "commands", file);
-    const command = require(p);
-    client.commands.set(command.name, command);
-  }
-}
-function parseMessage(message) {
-  //   logger.info(message.content);
-  const _message = message.content.trim();
+// function setCommands(dir, client) {
+//   const commandFiles = fs
+//     .readdirSync(dir)
+//     .filter((file) => file.endsWith(".js"));
 
-  const args = _message.slice(BOT_PREFIX.length).split(/\s+/);
-  const command = args.shift().toLocaleLowerCase();
-  return { command, args };
-}
+//   for (const file of commandFiles) {
+//     const p = path.join("..", "commands", file);
+//     const command = require(p);
+//     client.commands.set(command.name, command);
+//   }
+// }
+
+/**
+ * Takes a message sent by the user and returns an objet with the command and the args
+ * @param {string} message discord message object
+ * @returns {{command: string, args: string[]}} message broken into command and arguments
+ *
+ * @example
+ * input: !ping -- output: {ping, undefined}
+ * input: !hello world -- output: {hello, [world]}
+ * input: !hello world 5 -- output: {hello, [world,5]}
+ */
+// function parseMessage(message) {
+//   //   logger.info(message.content);
+//   const _message = message.content.trim();
+
+//   const args = _message.slice(BOT_PREFIX.length).split(/\s+/);
+//   const command = args.shift().toLocaleLowerCase();
+//   return { command, args };
+// }
 function hasRole(member, roleId) {
   return member.roles.cache.has(roleId);
 }
@@ -98,8 +110,8 @@ async function unpinAllMessages(message) {
 module.exports = {
   mentionByRoleId,
   mentionByMemberId,
-  setCommands,
-  parseMessage,
+  // setCommands,
+  // parseMessage,
   hasRole,
   hasRoleByName,
   getRoleByName,
