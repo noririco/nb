@@ -9,7 +9,7 @@ module.exports = (client, Discord) => {
   const loadDir = (_dir) => {
     logger.info(`[event.handle.js] ${_dir}`);
     const eventFiles = fs
-      .readdirSync(`${eventsDir}/${_dir}`)
+      .readdirSync(path.join(eventsDir, _dir))
       .filter((file) => file.endsWith(".js"));
 
     for (const file of eventFiles) {
