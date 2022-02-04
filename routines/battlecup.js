@@ -6,24 +6,25 @@ const logger = require("../logger");
 
 async function battlecup(client) {
   logger.info(`[Routine] battlecup started..`);
-  const battleCronDate = "0 20 * * 6";
+
   const guild = client.guilds.cache.get(GuildID);
   // logger.info(guild);
   const textChannels = guild.channels.cache.filter((c) => c.type === "text");
-  cron.schedule(battleCronDate, () => {
-    logger.info(`[Routine] cron.schedule ${battleCronDate}..`);
-    textChannels.forEach(
-      (c) => {
-        logger.info(`[Routine] channel embed message ${c.name}..`);
-        battleCupEmbededMessage(c);
-        //   c.send("test");
-      },
-      {
-        scheduled: true,
-        timezone: "Asia/Jerusalem",
-      }
-    );
-  });
+  const battleCupCronExpression = "0 20 * * 6";
+  const battleCupCronScheduleOptions = {
+    scheduled: true,
+    timezone: "Asia/Jerusalem",
+  };
+  const battleCupFn = () => {
+    logger.info(`[Routine] cron.schedule ${battleCupCronExpression}..`);
+    textChannels.forEach((c) => {
+      logger.info(`[Routine] channel embed message ${c.name}..`);
+      battleCupEmbededMessage(c);
+      //   c.send("test");
+    });
+  };
+
+  cron.schedule(battleCupCronExpression, battleCupFn, battleCupCronScheduleOptions);
 }
 
 async function battleCupEmbededMessage(channel) {
